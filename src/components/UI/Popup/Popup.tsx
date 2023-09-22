@@ -1,12 +1,25 @@
-import {FC} from "react";
+import React, {FC} from "react";
 
-import styles from "./Popup.module.css"
-const Popup:FC = () => {
+import "./popup.css"
+
+interface IPopup {
+    children: React.ReactNode,
+    showModal: boolean,
+    setShowModal: any
+}
+const Popup:FC<IPopup> = ({children, showModal, setShowModal}) => {
+
     return (
         <section
-            className={styles.wrapper}
+            className={showModal ? "modal active" : "modal"}
+            onClick={() => setShowModal(false)}
         >
-
+            <div
+                className={showModal ? "wrapper active" : "wrapper"}
+                onClick={e => e.stopPropagation()}
+            >
+                {children}
+            </div>
         </section>
     );
 };
